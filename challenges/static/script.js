@@ -11,7 +11,7 @@ $(document).ready(function() {
         });
     });
 
-        $('.ajax-save').click(function() {
+    $('.ajax-save').click(function() {
         var tr = $(this).parent().parent();
         var csrftoken = getCookie('csrftoken');
         var pk = tr.prop('id');
@@ -44,7 +44,7 @@ $(document).ready(function() {
         });
     });
 
-        $('.ajax-delete').click(function(){
+    $('.ajax-delete').click(function(){
             var csrftoken = getCookie('csrftoken');
             var tr = $(this).parent().parent();
             var pk = tr.find('.id').text();
@@ -55,6 +55,21 @@ $(document).ready(function() {
         });
     });
 
+
+    $('.ajax-edit').click(function() {
+        var tr = $(this).parent().parent();
+        var csrftoken = getCookie('csrftoken');
+        var pk = tr.prop('id');
+
+        $.post('/ajax/getChallenge/', { 'csrfmiddlewaretoken': csrftoken, 'id': pk }, function(data) {
+            var dataDict = JSON.parse(data);
+            tr.find('name-edit').val(dataDict['name']);
+            tr.find('.description-edit').val(dataDict['description']);
+            tr.find('.duration').val(dataDict['duration']);
+            tr.find('.counter-edit').val(dataDict['counter']);
+            tr.attr('version', dataDict['version']);
+        });
+    });
 });
 
 
