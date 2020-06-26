@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="../../static/script.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('.save-button').hide();
+        $('.edit').hide();
+        $('.cancel-button').hide();
+
+        $('span.progress').each(function(){
+            var tr = $(this).parent().parent()
+            $(this).text(Math.round(tr.find('.counter-text').text()/tr.find('.days_total-text').text()*100)+'%');
+        })
+
+        $('.edit-button').click(function(){
+            $(this).hide();
+            var tr = $(this).parent().parent();
+            tr.find('.text').hide();
+            tr.find('.edit').show();
+            tr.find('.save-button').show();
+            tr.find('.cancel-button').show();
+            tr.find('.plus-button').hide();
+            tr.find('.id').show();
+            tr.find('.start_date-text').show();
+        });
+
+        $('.save-button').click(function(){
+            $(this).hide();
+            var tr = $(this).parent().parent();
+            tr.find('.edit').hide();
+            tr.find('.edit-button').show();
+            tr.find('.text').show();
+            tr.find('.plus-button').show();
+            tr.find('.cancel-button').hide();
+        });
+
+        $('.cancel-button').click(function(){
+            $(this).hide();
+            var tr = $(this).parent().parent();
+            tr.find('.edit').hide();
+            tr.find('.edit-button').show();
+            tr.find('.text').show();
+            tr.find('.plus-button').show();
+            tr.find('.save-button').hide();
+        });
+    });
+    </script>
+
+  <title>Challenges</title>
+  </head>
+
+  <body>
+    <h1>Challenges</h1>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Total nr of days</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Completed</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for challenge in challenges_list %}
+            <tr>
+            <td><span class="text id">{{ challenge.id }}</span></td>
+            <td><span class="text name-text">{{ challenge.name }}</span>
+            <input type="text" class="form-control edit name-edit" name="name"></td>
+            <td><span class="text description-text">{{ challenge.description }}</span>
+            <input type="text" class="form-control edit description-edit" name="description"></td>
+            <td><span class="text days_total-text">{{ challenge.duration }}</span>
+            <input type="text" class="form-control edit days_total-edit" name="days_total"></td>
+            <td><span class="text start_date-text">{{ challenge.start_date }}</span></td>
+            <td><span class="text progress"></span></td>
+            <td><span class="text counter-text">{{ challenge.counter }}</span>
+            <input type="text" class="form-control edit counter-edit" name="counter">
+            <button type="button" class="btn plus-button">+</button></td>
+            <td>
+            <button type="button" class="btn btn-success edit-button ajax-edit">Edit</button>
+            <button type="button" class="btn btn-primary save-button ajax-save">Save</button>
+            <button type="button" class="btn btn-danger delete-button ajax-delete">Delete</button>
+            <button type="button" class="btn btn-warning cancel-button">Cancel</button>
+            </td>
+          </tr>
+    {% endfor %}
+    </tbody>
+    </table>
