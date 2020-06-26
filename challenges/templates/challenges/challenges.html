@@ -99,6 +99,13 @@
             <button type="button" class="btn btn-warning cancel-button">Cancel</button>
             </td>
           </tr>
-    {% endfor %}
-    </tbody>
+        {% endfor %}
+      </tbody>
     </table>
+  <form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><input type="submit" value="Dodaj!"></p>
+  </form>
+  </body>
+</html>
