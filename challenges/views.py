@@ -31,7 +31,12 @@ def ajaxIncrement(request):
 @csrf_protect  # cross-site request forgery protection
 def ajaxSaveChallenge(request):
     challenge = get_object_or_404(Challenge, pk=request.POST['id'])
+    if str(challenge.version) != request.POST['version']:
+        return HttpResponse('2')
     challenge.name = request.POST['name']
+    challenge.description = request.POST['description']
+    challenge.duration = request.POST['duration']
+    challenge.counter = request.POST['counter']
     challenge.save()
     return HttpResponse('0')
 

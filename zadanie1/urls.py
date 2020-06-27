@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^ajax/increment/', views.ajaxIncrement),
     url(r'^ajax/save/', views.ajaxSaveChallenge),
     url(r'^ajax/delete', views.ajaxDeleteChallenge),
-    url(r'^ajax/getchallenge/', views.ajaxGetChallenge),
+    url(r'^ajax/getChallenge/', views.ajaxGetChallenge),
 ]
