@@ -1,20 +1,21 @@
 
 $(document).ready(function() {
+
     $('.plus-button').click(function () {
         var tr = $(this).parent().parent();
         var pk = tr.find('.id').text();
         $.get('/ajax/increment?id=' + pk, function (data) {
-            /* zmiana w wierszu */
             tr.find('.counter-text').text(data);
             tr.find('.counter-edit').val(data);
             tr.find('.progress').text(Math.round(tr.find('.counter-text').text() / tr.find('.days_total-text').text() * 100) + '%');
         });
     });
 
+
     $('.ajax-save').click(function() {
         var tr = $(this).parent().parent();
         var csrftoken = getCookie('csrftoken');
-        var pk = tr.prop('id');
+        var pk = tr.find('.id').text();
         var name = tr.find('.name-edit').val();
         var description = tr.find('.description-edit').val();
         var duration = tr.find('duration-edit').val();
@@ -36,13 +37,13 @@ $(document).ready(function() {
                 tr.find('.description-text').text(description);
                 tr.find('.duration-text').text(duration);
                 tr.find('.counter-text').text(counter);
-
             }
             if (data == '2') {
                 alert('Your edit has not been saved, data was changed during your edit')
             }
         });
     });
+
 
     $('.ajax-delete').click(function(){
             var csrftoken = getCookie('csrftoken');
@@ -59,13 +60,13 @@ $(document).ready(function() {
     $('.ajax-edit').click(function() {
         var tr = $(this).parent().parent();
         var csrftoken = getCookie('csrftoken');
-        var pk = tr.prop('id');
+        var pk = tr.find('.id').text();
 
         $.post('/ajax/getChallenge/', { 'csrfmiddlewaretoken': csrftoken, 'id': pk }, function(data) {
             var dataDict = JSON.parse(data);
-            tr.find('name-edit').val(dataDict['name']);
+            tr.find('.name-edit').val(dataDict['name']);
             tr.find('.description-edit').val(dataDict['description']);
-            tr.find('.duration').val(dataDict['duration']);
+            tr.find('.duration-edit').val(dataDict['duration']);
             tr.find('.counter-edit').val(dataDict['counter']);
             tr.attr('version', dataDict['version']);
         });
