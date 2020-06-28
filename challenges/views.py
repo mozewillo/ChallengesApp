@@ -1,9 +1,10 @@
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 import json
 # Create your views here.
-from challenges.models import Challenge
+from challenges.models import Challenge, Category, Tag
 from zadanie1.forms import ChallengeForm
 
 
@@ -20,6 +21,20 @@ def showChallenges(request):
         form = ChallengeForm()
     return render(request, 'challenges/challenges.html', locals())
 
+
+def showCategories(request):
+    categories = Category.objects.annotate(num_challenges=Count('challenge'))
+    return render(request, 'challenges/categories.html', locals())
+
+
+def showChallengesInCategory(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    challenges = Challenge.objects.filter(category=category)
+    return render(request, 'challenges/challenges_in_category.html', locals())
+
+def showChallenge(request, pk):
+    challenge = get_object_or_404(Challenge, pk=pk)
+    return render(request, 'challenges/challenge.html', locals())
 
 def ajaxIncrement(request):
     challenge = get_object_or_404(Challenge, pk=request.GET['id'])

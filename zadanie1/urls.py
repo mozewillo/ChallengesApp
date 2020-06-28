@@ -22,6 +22,9 @@ urlpatterns = [
     # website
     url(r'^$', views.showChallenges),
     url(r'^admin/', admin.site.urls),
+    url(r'^categories/$', views.showCategories),
+    url(r'^challenges/([0-9]+)/$', views.showChallengesInCategory),
+    url(r'^challenge/([0-9]+)/$', views.showChallenge),
 
     # ajax
     url(r'^ajax/increment/', views.ajaxIncrement),
