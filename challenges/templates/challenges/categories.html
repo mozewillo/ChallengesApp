@@ -1,0 +1,19 @@
+{% extends "challenges/base_layout.html" %}
+
+{%  block content %}
+
+<title>Categories</title>
+<h1>Categories</h1>
+<table class="table table-striped table-hover table-bordered">
+<tr>
+	<th>Category</th>
+	<th>Number of challenges</th>
+</tr>
+{% for c in categories %}
+<tr>
+    <td style="padding:0 45px 0 45px;"><a href="/challenges/{{c.pk}}/">{{c.name}}</a></td>
+    <td style="padding:0 45px 0 45px;">{{c.num_challenges}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

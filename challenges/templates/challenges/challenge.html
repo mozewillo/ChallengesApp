@@ -1,0 +1,32 @@
+{% extends "challenges/base_layout.html" %}
+
+
+{% block content %}
+<script>
+$(document).ready(function() {
+        $('span.progress').each(function () {
+            var tr = $(this).parent().parent()
+            var prgrs = Math.round((tr.find('.counter-text').text() / tr.find('.duration-text').text()) * 100) + '%';
+            $(this).text(prgrs);
+        });
+    });
+</script>
+
+<h1>{{challenge.name}}</h1>
+<h4>Descrption: {{challenge.description}}</h4>
+
+<table class="table table-striped table-hover table-bordered">
+	<tr>
+        <th>Start</th>
+        <th>Duration</th>
+        <th>Completed</th>
+        <th>Progress</th>
+</tr>
+
+<tr>
+	<td><span class="text">{{ challenge.start_date}}</span>
+    <td><span class="text duration-text">{{ challenge.duration }}</span>
+    <td><span class="text counter-text">{{ challenge.counter }}</span>
+    <td><span class="text progress"></span></td>
+</table>
+{% endblock %}

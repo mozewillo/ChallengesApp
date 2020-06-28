@@ -16,7 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
     <script src="{% static 'challenges/script.js' %}"></script>
     <script>
     $(document).ready(function(){
@@ -27,7 +26,7 @@
         $('span.progress').each(function(){
             var tr = $(this).parent().parent()
             $(this).text(Math.round(tr.find('.counter-text').text()/tr.find('.duration-text').text()*100)+'%');
-        })
+        });
 
         $('.edit-button').click(function(){
             $(this).hide();
@@ -64,6 +63,7 @@
     </script>
 
   <title>Challenges</title>
+      <h1 style="font-size:15px;"><a href="/categories/">Go to Categories</a></h1>
   </head>
 
 {#  Table #}
